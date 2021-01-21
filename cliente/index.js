@@ -1,13 +1,29 @@
+const opsCliente = '+-'
 async function calcular() {
+  const x = Number(xinput.value)
+  const y = Number(yinput.value)
+  const op = opinput.value
+
   try {
-    const req = await hacerPost('http://localhost:8000/calcular', {
-      x: Number(x.value),
-      y: Number(y.value),
-      op: op.value,
-    })
-    procesarResultado(await req.json())
+    if (opsCliente.includes(op)) {
+      const resultado = eval(x + op + y)
+
+      await hacerPost('http://localhost:8000/guardar', {
+        op,
+        resultado,
+      })
+
+      mostrarResultado({ resultado })
+    } else {
+      const req = await hacerPost('http://localhost:8000/calcular', {
+        x,
+        y,
+        op,
+      })
+      mostrarResultado(await req.json())
+    }
   } catch (ex) {
-    procesarResultado({ error: 'No se pudo conectar al servidor' })
+    mostrarResultado({ error: 'No se pudo conectar al servidor' })
   }
 }
 
@@ -21,7 +37,7 @@ function hacerPost(url, body) {
   })
 }
 
-function procesarResultado({ resultado, error }) {
+function mostrarResultado({ resultado, error }) {
   solucion.innerHTML = resultado ?? error
   solucion.removeAttribute('hidden')
   solucion.className = `notification is-${
