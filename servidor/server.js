@@ -30,6 +30,8 @@ f.post('/guardar', async req => {
 
   variables[op] = resultado
   console.log('Variables:', variables)
+
+  return { ok: true }
 })
 
 f.listen(8000)
