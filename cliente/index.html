@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cliente</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="field">
+        <label class="label" for="x">x</label>
+        <input
+          class="input"
+          type="number"
+          name="x"
+          id="x"
+          value="0"
+          onblur="corregir('x')"
+          required
+        />
+      </div>
+      <br />
+      <div class="field">
+        <label class="label">Operacion</label>
+        <div class="control">
+          <div class="select">
+            <select id="op">
+              <option value="+">+</option>
+              <option value="-">-</option>
+              <option value="*">x</option>
+              <option value="/">/</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="field">
+        <label class="label" for="y">y</label>
+        <input
+          class="input"
+          type="number"
+          name="y"
+          id="y"
+          value="0"
+          onblur="corregir('y')"
+          required
+        />
+      </div>
+      <br />
+      <div class="field">
+        <button class="button is-link" onclick="calcular()">Calcular</button>
+      </div>
+      <div class="notification is-primary" id="solucion" hidden></div>
+    </div>
+    <script src="./index.js" charset="utf-8"></script>
+  </body>
+</html>

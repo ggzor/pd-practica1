@@ -1,0 +1,11 @@
+{
+  "name": "Practica1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^3.9.2",
+    "fastify-cors": "^5.1.0",
+    "mongodb": "^3.6.3"
+  }
+}
