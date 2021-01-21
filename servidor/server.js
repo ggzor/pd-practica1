@@ -4,18 +4,20 @@ f.register(require('fastify-cors'))
 const variables = {}
 console.log('Variables:', variables)
 
-const opsGuardar = '+-*/'
-f.post('/guardar', async req => {
-  const { op, resultado } = req.body
+const ops = '+-*/'
+f.post('/calcular', async req => {
+  const { x, y, op } = req.body
 
   // Validación
-  if (!opsGuardar.includes(op) || typeof resultado !== 'number')
+  if (!ops.includes(op) || typeof x !== 'number' || typeof y !== 'number')
     throw { error: 'Solicitud Inválida' }
+  else if (op === '/' && y === 0) throw { error: 'División entre cero' }
 
-  variables[op] = resultado
+  console.log(`Calculando '${x} ${op} ${y}'...`)
+  variables[op] = eval(x + op + y)
   console.log('Variables:', variables)
 
-  return { ok: true }
+  return { resultado: variables[op] }
 })
 
 f.listen(8000)

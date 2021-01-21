@@ -1,26 +1,16 @@
-const opsCliente = '+-*/'
 async function calcular() {
   const x = Number(xinput.value)
   const y = Number(yinput.value)
   const op = opinput.value
 
   try {
-    if (opsCliente.includes(op)) {
-      // Revisión de errores
-      if (op === '/' && y === 0) {
-        mostrarResultado({ error: 'División entre cero' })
-        return
-      }
+    const req = await hacerPost('http://localhost:8000/calcular', {
+      x,
+      y,
+      op,
+    })
 
-      const resultado = eval(x + op + y)
-
-      await hacerPost('http://localhost:8000/guardar', {
-        op,
-        resultado,
-      })
-
-      mostrarResultado({ resultado })
-    }
+    mostrarResultado(await req.json())
   } catch (ex) {
     mostrarResultado({ error: 'No se pudo conectar al servidor' })
   }
